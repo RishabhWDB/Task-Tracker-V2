@@ -33,7 +33,7 @@ func main() {
 
 	router := gin.Default()
 	router.POST("/register", app.RegisterUser)
-	router.Run()
+	router.Run(":8080")
 }
 
 // func (a *utils.App) HelloHandler(c *gin.Context) {

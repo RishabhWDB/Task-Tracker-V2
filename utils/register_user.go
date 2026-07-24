@@ -22,9 +22,13 @@ func (a *App) RegisterUser(c *gin.Context) {
 	}
 	u.Password = string(hashed)
 	err = a.DB.QueryRow("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id", u.Name, u.Email, u.Password).Scan(&u.ID)
-	if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == "23505" {
-		c.JSON(http.StatusConflict, gin.H{"error": "email already registered"})
+	if err != nil {
+		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == "23505" {
+			c.JSON(http.StatusConflict, gin.H{"error": "email already registered"})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	c.JSON(http.StatusOK, gin.H{"id": u.ID})
 }

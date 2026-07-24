@@ -15,7 +15,7 @@ type Todo struct {
 	Description string `json:"description"`
 	Status      string `json:"status"`
 	Deadline    string `json:"deadline"`
-	UserID      string `json:"user_id"`
+	UserID      int    `json:"user_id"`
 }
 
 type App struct {

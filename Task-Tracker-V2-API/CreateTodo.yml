@@ -1,0 +1,25 @@
+info:
+  name: CreateTodo
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:8080/todos
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Buy groceries",
+        "description": "Milk, eggs, and bread",
+        "deadline": "2026-08-15"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODQ5ODI1MjMsInVzZXJfaWQiOjF9.CYkeMhzbLjWX6CRyV9GWHNuYSfvPWfCA9TvEur3j85o
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
